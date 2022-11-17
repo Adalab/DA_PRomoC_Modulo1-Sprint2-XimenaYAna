@@ -29,16 +29,16 @@ El siguiente paso en el análisis de los pedidos va a consistir en conocer mejor
 Por lo tanto, tendremos que generar una consulta que nos saque el número de pedidos para cada día, mostrando de manera separada 
 el día (DAY()), el mes (MONTH()) y el año (YEAR()).*/
 
-SELECT order_id, order_date, COUNT(order_date) AS NumPedidosDia, DAY(order_date) AS Dia, MONTH(order_date) AS Mes, YEAR (order_date) AS Anno
+SELECT COUNT(order_id) AS NumerodePedidos, DAY(order_date) AS Dia, MONTH(order_date) AS Mes, YEAR(order_date)
 FROM orders
-GROUP BY order_date;
+GROUP BY DAY(order_date);
 
 /* EJERCICIO 4*/
 /* Número de pedidos por mes y año:
 La consulta anterior nos muestra el número de pedidos para cada día concreto, pero esto es demasiado detalle. Genera una modificación de 
 la consulta anterior para que agrupe los pedidos por cada mes concreto de cada año.*/
 
-SELECT order_id, order_date, COUNT(order_date) AS NumPedidosDia,  MONTH(order_date) AS Mes
+SELECT COUNT(order_date) AS NumerodePedidos,  MONTH(order_date) AS Mes, YEAR (order_date) AS Ano
 FROM orders
 GROUP BY MONTH(order_date);
 
@@ -59,13 +59,10 @@ Necesitamos una consulta que clasifique los pedidos en dos categorías
 
 SELECT
 CASE
-    WHEN (unit_price*quantity) <= 2000 THEN "Bajo"
-    ELSE
-        CASE WHEN (unit_price*quantity) > 2000 THEN "Alto"
-        END
-    END PresupuestoTotal, order_id AS NumeroPedido
+	WHEN (unit_price*quantity) < 2000 THEN "Bajo"
+	WHEN (unit_price*quantity) > 2000 THEN "Alto"
+	END AS CategoriaPedido,(unit_price*quantity) AS CantidadMonetaria
 FROM order_details;
-
 
 
 
