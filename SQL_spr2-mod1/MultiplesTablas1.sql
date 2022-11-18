@@ -8,22 +8,38 @@ USE nortwind;
 -- Nos piden el ID del cliente y el nombre de la empresa y el 
 -- número de pedidos.
 
-SELECT customers.company_name AS NombreEmpresa, customers.customer_id AS Identificador, COUNT(order_id) AS NumeroPedidos
+SELECT customers.company_name AS NombreEmpresa, customers.customer_id AS Identificador, COUNT(DISTINCT order_id) AS NumeroPedidos
 FROM customers
 INNER JOIN orders
+ON orders.customer_id = customers.customer_id
 WHERE country = "UK"
-GROUP BY customers.customer_id;
+GROUP BY customers.customer_id
+ORDER BY customers.company_name;
 
 -- 2 La primera de ellas consiste en una query que nos sirva 
 -- para conocer cuántos objetos ha pedido cada empresa cliente 
 -- de UK durante cada año. Nos piden concretamente conocer el nombre 
 -- de la empresa, el año, y la cantidad de objetos que han pedido
 
-SELECT customers.company_name AS NombreEmpresa, YEAR(orders.order_date) AS Año, COUNT(quantity) AS NumObjetos
-FROM customers
-INNER JOIN orders
-INNER JOIN order_details
+SELECT customers.company_name AS NombreEmpresa, YEAR(orders.order_date) AS Año, COUNT(DISTINCT order_details.product_id)*quantity AS NumObjetos
+FROM customers 
+INNER JOIN orders 
+ON orders.customer_id = customers.customer_id
+INNER JOIN order_details 
+ON orders.order_id = order_details.order_id
 WHERE country = "UK"
-GROUP BY customers.company_name, Año; 
+GROUP BY customers.company_name;  
+
+
+/* 3. Mejorad la query anterior:
+Lo siguiente que nos han pedido es la misma consulta anterior pero con la adición de la cantidad de dinero que 
+han pedido por esa cantidad de objetos, teniendo en cuenta los descuentos, etc. Ojo que los descuentos en nuestra 
+tabla nos salen en porcentajes, 15% nos sale como 0.15.
+La tabla resultante será:*/
+
+
+
+
+
 
 
