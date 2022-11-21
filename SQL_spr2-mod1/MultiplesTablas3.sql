@@ -64,27 +64,13 @@ que nos muestre todos los pedidos que contengan "Konbu".
 adquiridos en las lecciones anteriores como por ejemplo el INNER JOIN*/
 
 
-SELECT *
-FROM orders
-WHERE product_id = 13  IN(
-	SELECT products.product_id
-    FROM products
-    INNER JOIN products.product_id
-    ON products);
-
-SELECT * 
-FROM
-   orders
-   INNER JOIN  ON orders.order_id=b.id
-WHERE product_id = 13 ;
 
 SELECT *
 FROM orders
-WHERE product_id IN (
-	SELECT product_id
-    FROM orders
-    INNER JOIN 
-    WHERE product_id = 13);
-
-    
+WHERE order_id IN (
+					SELECT order_details.order_id
+					FROM order_details
+					INNER JOIN products
+					USING(product_id)
+					WHERE product_name = "konbu");    
     
