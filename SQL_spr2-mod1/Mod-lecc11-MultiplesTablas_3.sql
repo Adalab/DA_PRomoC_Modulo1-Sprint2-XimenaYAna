@@ -30,12 +30,12 @@ En este caso, nuestro jefe quiere saber cuantos pedidos ha gestionado
 "Nancy Davolio", una de nuestras empleadas. Nos pide todos los detalles 
 tramitados por ella.*/
 
-SELECT *
+SELECT order_id, employee_id
 FROM orders
-WHERE employee_id = 1 IN(
-	SELECT employee_id
-    FROM employees);
-
+WHERE employee_id IN (			
+				SELECT employee_id
+				FROM employees
+				WHERE first_name = "Nancy" AND last_name = "Davolio");
 
 
 /*Ejercicio 3: Extraed todas las empresas que no han comprado en el año 1997
