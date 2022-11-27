@@ -3,6 +3,6 @@ Repositorio de ejercicios de pair programming de SQL y Python de Ximena Trujillo
 
 En este repositorio hemos estado trabajando con:
 
--Python: Funciones, clases
+-Python: Funciones, clases, regex, gestion de ficheros y hemos trabajado en SQL desde Python.
 
--SQL: Consultas en una tabla, en multiples tablas, diferentes tipos de join
+-SQL: Consultas en una tabla, en multiples tablas, diferentes tipos de join, subqueries y CTES.
